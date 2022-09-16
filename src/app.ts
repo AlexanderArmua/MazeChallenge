@@ -1,57 +1,53 @@
-import maze, { printMaze } from "./constants/maze";
+import MAZE, { MAZE_END, mustFollowRoute, printMaze } from "./constants/maze";
 import { Maze, MazeChar, Position } from "./global/types";
+import WalkedPath from "./walkedPath";
 
-printMaze(maze)
+const canGoToChar = (char: MazeChar, nextChar: MazeChar): boolean => char === MAZE_END || char === nextChar;
 
-const position: Position = {
-    x: 0,
-    y: 1
-}
+const canGoLeft = (maze: Maze, { x, y }: Position, nextChar: MazeChar): boolean => x > 0 && canGoToChar(maze[x - 1][y], nextChar);
+const canGoRight = (maze: Maze, { x, y }: Position, nextChar: MazeChar): boolean => x < maze.length - 1 && canGoToChar(maze[x + 1][y], nextChar);
+const canGoUp = (maze: Maze, { x, y }: Position, nextChar: MazeChar): boolean => y > 0 && canGoToChar(maze[x][y - 1], nextChar);
+const canGoDown = (maze: Maze, { x, y }: Position, nextChar: MazeChar): boolean => y < maze[0].length - 1 && canGoToChar(maze[x][y + 1], nextChar);
 
-console.log(maze[position.x][position.y])
-
-
-const possibleRoutes = (currentPosition: Position, maxX: number, maxY: number): Position[] => {
+const possibleRoutes = ({ x, y }: Position, maze: Maze, steps: number, mustFollowRoute: MazeChar[]): Position[] => {
     const positions = []
 
-    if (currentPosition.x > 0) {
-        positions.push({ ...currentPosition, x: currentPosition.x - 1 })
-    }
-    if (currentPosition.y > 0) {
-        positions.push({ ...currentPosition, y: currentPosition.y - 1 })
-    }
-    if (currentPosition.x < maxX) {
-        positions.push({ ...currentPosition, x: currentPosition.x + 1 })
-    }
-    if (currentPosition.y < maxY) {
-        positions.push({ ...currentPosition, y: currentPosition.y + 1 })
-    }
+    const nextChar = mustFollowRoute[steps % mustFollowRoute.length];
+
+    canGoLeft(maze, { x, y }, nextChar) && positions.push({ x: x - 1, y })
+    canGoRight(maze, { x, y }, nextChar) && positions.push({ x: x + 1, y })
+    canGoUp(maze, { x, y }, nextChar) && positions.push({ x, y: y - 1 })
+    canGoDown(maze, { x, y }, nextChar) && positions.push({ x, y: y + 1 })
 
     return positions;
 }
 
+const dfs = (maze: Maze, currentPosition: Position, mustFollowRoute: MazeChar[], walkedPath = new WalkedPath()): [WalkedPath, boolean] => {
+    const { x, y } = currentPosition;
 
-const dfs = (maze: Maze, p: Position, discovered: Position[] = []): Position[] => {
-    if (maze[p.x][p.y] === "B" && discovered.length > 0) {
-        return [...discovered, p];
+    walkedPath.addStep(currentPosition);
+
+    if (maze[x][y] === MAZE_END && walkedPath.getSteps > 1) {
+        return [walkedPath, true];
     }
 
-    const routesA = possibleRoutes(p, maze.length - 1, maze[0].length - 1);
-
-    const routes = routesA.filter(future => {
-        return !discovered.some((prev) => prev.x === future.x && prev.y === future.y)
-    });
+    const routes = possibleRoutes(currentPosition, maze, walkedPath.getSteps - 1, mustFollowRoute)
+        .filter((possiblePosition) => !walkedPath.hasBeenHere(possiblePosition));
 
     for (let i = 0; i < routes.length; i++) {
-        const result = dfs(maze, routes[i], [...discovered, p]);
+        const [result, foundit] = dfs(maze, routes[i], mustFollowRoute, walkedPath);
 
-        if (result.length > 0) {
-            return result
+        if (foundit) {
+            return [result, foundit];
         }
     }
 
-    return []
+    walkedPath.getPath.pop();
+
+    return [new WalkedPath(walkedPath.getWalkedPath, walkedPath.getPath), false];
 }
 
-console.log(dfs(maze, position))
+const [pathTaken] = dfs(MAZE, { x: 0, y: 1 }, mustFollowRoute);
 
+printMaze(MAZE)
+console.log(pathTaken)
