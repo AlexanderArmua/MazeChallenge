@@ -1,4 +1,3 @@
-
 import { Maze } from "../global/types";
 import { isOnMazeExit } from "./maze";
  

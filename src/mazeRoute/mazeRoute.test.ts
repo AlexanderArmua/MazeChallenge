@@ -1,4 +1,4 @@
-import { Maze, MazeChar, Position } from "./global/types";
+import { Maze, MazeChar, Position } from "../global/types";
 import possibleRoutes from "./mazeRoute";
 
 describe("MazeRoute", () => {
@@ -13,7 +13,7 @@ describe("MazeRoute", () => {
     test('possibleRoutes should return a path to right', () => {
         const position: Position = { x: 0, y: 0 };
     
-        let steps = 1;
+        const steps = 1;
 
         const nextRoute = possibleRoutes(position, maze, steps, mustFollowRoute);
 
@@ -23,7 +23,7 @@ describe("MazeRoute", () => {
     test('possibleRoutes should return a path to bottom and up', () => {
         const position: Position = { x: 0, y: 1 };
     
-        let steps = 2;        
+        const steps = 2;        
 
         const nextRoute = possibleRoutes(position, maze, steps, mustFollowRoute);
 
@@ -34,7 +34,7 @@ describe("MazeRoute", () => {
     test('possibleRoutes should return a path to left and up', () => {
         const position: Position = { x: 2, y: 1 };
     
-        let steps = 3;
+        const steps = 3;
 
         const nextRoute = possibleRoutes(position, maze, steps, mustFollowRoute);
 

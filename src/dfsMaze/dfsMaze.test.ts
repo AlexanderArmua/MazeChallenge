@@ -1,5 +1,5 @@
+import { Maze, MazeChar } from "../global/types";
 import dfs from "./dfsMaze";
-import { Maze, MazeChar } from "./global/types";
 
 describe('dfsMaze', () => { 
     const maze: Maze = [

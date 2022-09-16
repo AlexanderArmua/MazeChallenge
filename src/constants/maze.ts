@@ -1,5 +1,5 @@
 import { Maze, MazeChar, Position } from "../global/types";
-import WalkedPath from "../walkedPath";
+import WalkedPath from "../walkedPath/walkedPath";
 
 const MAZE_END = "B";
 

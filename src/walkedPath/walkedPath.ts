@@ -1,4 +1,4 @@
-import { Position } from "./global/types";
+import { Position } from "../global/types";
 
 interface IWalkedPath {
     [x: number]: { [y: number]: boolean };

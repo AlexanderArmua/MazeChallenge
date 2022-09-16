@@ -1,5 +1,5 @@
 import MAZE, { mustFollowRoute, printMaze } from "./constants/maze";
-import dfs from "./dfsMaze";
+import dfs from "./dfsMaze/dfsMaze";
 
 const [pathTaken, founded] = dfs(MAZE, { x: 0, y: 1 }, mustFollowRoute);
 

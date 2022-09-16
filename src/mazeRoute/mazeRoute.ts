@@ -1,5 +1,5 @@
-import { MAZE_END } from "./constants/maze";
-import { Maze, MazeChar, Position } from "./global/types";
+import { MAZE_END } from "../constants/maze";
+import { Maze, MazeChar, Position } from "../global/types";
 
 const canGoToChar = (char: MazeChar, nextChar: MazeChar): boolean => char === MAZE_END || char === nextChar;
 
