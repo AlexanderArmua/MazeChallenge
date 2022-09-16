@@ -11,17 +11,17 @@ describe('dfsMaze', () => {
     const mustFollowRoute: MazeChar[] = ["C", "C", "C"];
 
     it('should return a path', () => {
-        const [pathTaken, founded] = dfs(maze, { x: 0, y: 0 }, mustFollowRoute);
+        const [pathTaken, found] = dfs(maze, { x: 0, y: 0 }, mustFollowRoute);
 
-        expect(founded).toBeTruthy();
+        expect(found).toBeTruthy();
         expect(pathTaken.getSteps).toBe(5);
         expect(pathTaken.getPath).toEqual([{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 0 }]);
     });  
     
     it('shouldnt return a path', () => {
-        const [pathTaken, founded] = dfs(maze, { x: 0, y: 0 }, ["D", "D", "D"]);
+        const [pathTaken, found] = dfs(maze, { x: 0, y: 0 }, ["D", "D", "D"]);
 
-        expect(founded).toBeFalsy();
+        expect(found).toBeFalsy();
         expect(pathTaken.getSteps).toBe(0);
         expect(pathTaken.getPath).toEqual([]);
     });
