@@ -37,6 +37,14 @@ class WalkedPath {
     public hasBeenHere({ x, y }: Position): boolean {
         return x in this.walkedPath && y in this.walkedPath[x];
     }
+
+    public removeLastStep(): void {
+        this.path.pop();
+    }
+
+    public hasBeenWalkin(): boolean {
+        return this.getSteps > 1;
+    }
 }
 
 export default WalkedPath;

@@ -1,4 +1,5 @@
-import { Maze, MazeChar } from "../global/types";
+import { Maze, MazeChar, Position } from "../global/types";
+import WalkedPath from "../walkedPath";
 
 const MAZE_END = "B";
 
@@ -19,9 +20,18 @@ const MAZE: Maze = [
     ["A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A"]
 ]
 
-const printMaze = (maze: Maze) => {
-    maze.forEach(row => {
-        const printRow = row.reduce((prev, current) => `${prev} ${current}`, '')
+const isOnMazeExit = (maze: Maze, { x, y }: Position): boolean => maze[x][y] === MAZE_END;
+
+const printMaze = (maze: Maze, walkedPath: WalkedPath) => {
+    maze.forEach((row, x) => {
+        const printRow = row.reduce((prev, current, y) => {
+            // Add color if the current position is on the path
+            if (walkedPath.hasBeenHere({ x, y })) {
+                return `${prev} \x1b[32m${current}\x1b[0m`;
+            } else {
+                return `${prev} ${current}`;
+            }
+        }, '')
 
         console.log(printRow)
     });    
@@ -30,6 +40,7 @@ const printMaze = (maze: Maze) => {
 export {
     printMaze,
     mustFollowRoute,
+    isOnMazeExit,
     MAZE_END
 }
 
