@@ -7,8 +7,8 @@ printMaze(MAZE, pathTaken)
 
 console.log("====================================");
 if (founded) {
-    console.log(`\tPath founded: ${pathTaken.getSteps} steps`);
+    console.log(`\tPath found: ${pathTaken.getSteps} steps`);
 } else {
-    console.log('\tPath not founded');
+    console.log('\tPath not found');
 }
 console.log("====================================");

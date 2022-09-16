@@ -17,7 +17,7 @@ const dfs = (maze: Maze, currentPosition: Position, mustFollowRoute: MazeChar[],
         const [result, isOnExit] = dfs(maze, routes[i], mustFollowRoute, walkedPath);
 
         if (isOnExit) {
-            return [result, isOnExit];
+            return [result, true];
         }
     }
 

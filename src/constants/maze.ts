@@ -26,7 +26,6 @@ const isOnMazeExit = (maze: Maze, { x, y }: Position): boolean => maze[x][y] ===
 const printMaze = (maze: Maze, walkedPath: WalkedPath) => {
     maze.forEach((row, x) => {
         const printRow = row.reduce((prev, current, y) => {
-            // Add color if the current position is on the path
             if (walkedPath.hasBeenHere({ x, y })) {
                 return `${prev} \x1b[32m${current}\x1b[0m`;
             } else {
