@@ -27,7 +27,7 @@ The pattern to find is B-XXX-XXX-....-X*N-B, being Xs consecutive between them a
     npm install
 ```
 
-## Run
+## Run
 ```bash
     npm run start
 ```
@@ -35,4 +35,9 @@ The pattern to find is B-XXX-XXX-....-X*N-B, being Xs consecutive between them a
 ## Lint
 ```bash
     npm run lint
+```
+
+## Test
+```bash
+    npm run test
 ```
