@@ -22,6 +22,7 @@ const MAZE: Maze = [
 
 const isOnMazeExit = (maze: Maze, { x, y }: Position): boolean => maze[x][y] === MAZE_END;
 
+/* istanbul ignore next */
 const printMaze = (maze: Maze, walkedPath: WalkedPath) => {
     maze.forEach((row, x) => {
         const printRow = row.reduce((prev, current, y) => {

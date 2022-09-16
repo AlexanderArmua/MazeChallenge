@@ -41,3 +41,8 @@ The pattern to find is B-XXX-XXX-....-X*N-B, being Xs consecutive between them a
 ```bash
     npm run test
 ```
+
+## Test with coverage
+```bash
+    npx jest --coverage
+```
